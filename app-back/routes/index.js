@@ -8,19 +8,17 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 
 
 /* GET home page. */
-router.get('/prueba', function(req, res, next) {
+router.get('/prueba', function (req, res, next) {
 
-  client.connect(err => 
-    {
-    client.db("Idioma").collection("Usuarios").find({}).toArray((err,data)=>
-  {
-    res.send(data)
-  }  
-    )
-    
+  client.connect(err => {
+    client.db("Idioma").collection("Usuarios").find({}).toArray((err, data) => {
+      res.send(data)
+    });
     client.close();
   });
-  
+
 });
+
+
 
 module.exports = router;
