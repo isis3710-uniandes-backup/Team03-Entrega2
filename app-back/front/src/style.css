@@ -1,0 +1,77 @@
+body{
+    
+background-color: #ffffff;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23cc0000' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23aa0000' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23d6002b' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23b10022' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23d9004b' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%23b2003d' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23d3006c' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%23ac0057' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23c4008c' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%239e0071' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23aa00aa' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23880088' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+background-attachment: fixed;
+background-size: cover;
+}
+
+#contenedor{
+   background: #ffffff;
+}
+ 
+.texto-encima{
+    position: fixed;
+    top: 75%;
+    left: 20%;
+}
+.centrado{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#divlogin{
+    position: fixed;
+    top: 20%;
+    left: 40%;
+}
+#texto-encima{
+    position: absolute;
+    top: 75%;
+    left: 20%;
+}
+#button-encima{
+    position: absolute;
+    top: 70%;
+    left: 70%;
+}
+#list-encima{
+    
+    top: 90%;
+    left: 10px;
+}
+#columna-descripcion{
+    margin: 15px;
+    padding: 40px;
+    background: #ffffff;
+}
+#info {
+    padding-left: 5px;
+    padding-right: 25px;
+    padding-top: 41px;
+    padding-bottom: 39px;
+    background: #e1ecf4;
+    margin-top: 19px;
+}
+#info-horario {
+    padding-left: 24px;
+    padding-right: 25px;
+    padding-top: 41px;
+    padding-bottom: 39px;
+    background: #e1ecf4;
+    margin-top: 19px;
+}
+.sidebar_info_content {
+    padding-left: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #9d9d9d;
+}
+.sidebar_info_icon {
+    
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+}
