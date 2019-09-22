@@ -4,23 +4,21 @@ var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://admin:admin@proyectoweb-n33pf.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true});
-
+var conn = client.connect();
 
 
 /* GET all institutions. */
 router.get('/', function (req, res, next) {
-
-    client.connect(err => {
+    conn.then(client => {
         client.db("Idioma").collection("Institucion").find({}).toArray((err, data) => {
             res.send(data)
         });
-        client.close();
     });
 });
 
 /* GET one institution */
 router.get('/:nombre', (req, res, next) => {
-    client.connect(err => {
+    conn.then(client => {
         client.db("Idioma").collection("Institucion").find({nombre:req.params.nombre}).toArray((err,data)=>{
             if(data === 0){
                 res.status(404).send("No existe esa institucion");
@@ -29,34 +27,40 @@ router.get('/:nombre', (req, res, next) => {
                 res.send(data[0]);
             }
         });
-        client.close();
     });
 });
 
 /* POST one institution */
 router.post('/', (req,res,next) => {
-    client.connect(err => {
+    conn.then(client => {
         client.db("Idioma").collection("Institucion").find({nombre:req.body.nombre}).toArray((err,data)=>{
             if(data.length === 0){
                 client.db("Idioma").collection("Institucion").insertOne({
                     nombre:req.body.nombre,
                     sedes:req.body.sedes?req.body.sedes:[],
                     calificaciones:[],
-                    cursos:req.body.cursos?req.body.cursos:[]
+                    cursos:[]
                 }).then(result => {
+                    agregarCursos(req.body.cursos, req.body.nombre);
                     res.send("Se ha agregado correctamente la institución");
-                    client.close();
                 });
             }
             else
             {
                 res.status(409).send("Ya existe esa institución");
-                client.close();
             }
         });
         
     });
 });
+
+function agregarCursos(cursos, nombre){
+    for(let i of cursos){
+        client.db("Idioma").collection("Cursos").insertOne(i).then(resp =>{
+            client.db("Idioma").collection("Institucion").updateOne({nombre:nombre}, {$addToSet : {cursos:i}});
+        });
+    }
+}
 
 /* POST one course of one institution */
 router.post('/:nombre/cursos/', (req,res,next) => {

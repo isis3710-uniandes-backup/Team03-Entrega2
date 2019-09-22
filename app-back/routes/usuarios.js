@@ -3,7 +3,7 @@ var express = require('express');
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://admin:admin@proyectoweb-n33pf.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true });
 var conn = client.connect();
 
 let app = express();
@@ -36,7 +36,7 @@ app.get("/:login",(req,res)=>{
 
 function getUsuario(callback,nombre){
     conn.then(cliente =>{
-        cliente.db("Idioma").collection("Usuarios").find({login:nombre}).toArray((err,data)=>{
+        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
             callback(data[0]);
         })
     })
