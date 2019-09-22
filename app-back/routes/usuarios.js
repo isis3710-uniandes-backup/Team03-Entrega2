@@ -51,7 +51,7 @@ app.post("/", (req,res)=>{
 
 function write(callback,datos){
     conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").find({login:datos.login}).toArray((err,data)=>{
+        cliente.db("Idioma").collection("Usuarios").find({usuario:datos.usuario}).toArray((err,data)=>{
             if(data.length ===0){
                 cliente.db("Idioma").collection("Usuarios").insertOne(datos,(info)=>{
                     callback(info);
@@ -76,7 +76,7 @@ app.put("/:login",(req,res)=>{
 
 function update(callback, nombre,datos){
     conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").updateOne({login:nombre},{$set:{password:datos.password,correo:datos.correo},upsert:true}, (data)=>{
+        cliente.db("Idioma").collection("Usuarios").updateOne({usuario:nombre},{$set:{password:datos.password,correo:datos.correo},upsert:true}, (data)=>{
             callback(data);
         })
     })
@@ -92,7 +92,7 @@ app.delete("/:login",(req,res)=>{
 function borrar(callback, nombre)
 {
     conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").deleteOne({login:nombre},info=>{
+        cliente.db("Idioma").collection("Usuarios").deleteOne({usuario:nombre},info=>{
             callback(info);
         })
     })
@@ -112,7 +112,7 @@ app.get("/:login/calificaciones", (req,res)=>{
 function getCalificaciones(callback, nombre)
 {
     conn.then(cliente =>{
-        cliente.db("Idioma").collection("Usuarios").find({login:nombre}).toArray((err,data)=>{
+        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
             callback(data[0]["calificaciones"]);
         })
     })
@@ -128,7 +128,7 @@ app.post("/:login/calificaciones/", (req,res)=>{
 
 function writeCalificacion(callback,nombre,datos){
     conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").find({login:nombre}).toArray((err,data)=>{
+        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
             if(data.length ===0){
                 callback("No se encuentra ese usuario");
             }
@@ -136,7 +136,7 @@ function writeCalificacion(callback,nombre,datos){
             {
                 cliente.db("Idioma").collection("Calificaciones").insertOne(datos).then(resp=>{
                     cliente.db("Idioma").collection("Calificaciones").find({_id:resp.insertedId}).toArray((err,data)=>{
-                        cliente.db("Idioma").collection("Usuarios").updateOne({login:nombre},{$addToSet:{
+                        cliente.db("Idioma").collection("Usuarios").updateOne({usuario:nombre},{$addToSet:{
                             calificaciones:data[0]
                         }});
                         callback("Calificacion añadida");
