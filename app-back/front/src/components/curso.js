@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class Curso extends Component {
     state={
-        nombre: this.props.value.nombre,
         idioma: this.props.value.idioma,
         dificultad: this.props.value.dificultad,
         costo: this.props.value.costo
@@ -12,12 +11,12 @@ class Curso extends Component {
             
               
   <div class="card">
-    <div class="card-header" id={this.state.nombre}>
-      <h2 class="mb-0">
+    <div class="card-header" id={this.state.idioma}>
+      <h1 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse show" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        {this.state.nombre}
+        {this.state.idioma}
         </button>
-      </h2>
+      </h1>
     </div>
 
 
@@ -30,8 +29,7 @@ class Curso extends Component {
             </div>
             <div class="col-7">
             <h2 >{this.state.idioma} </h2> 
-            <h3>Curso: {this.state.nombre}</h3>
-
+            
             <h5>Dificultad: {this.state.dificultad}</h5>
             <h5>Costo: {this.state.costo}</h5>
             </div>

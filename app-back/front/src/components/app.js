@@ -3,6 +3,7 @@ import Login from './login';
 import InstitucionList from './institucionList';
 import Institucion from './institucion';
 import Cursos from './cursos';
+import User from './user';
 
 class App extends Component {
     render() {
@@ -26,7 +27,7 @@ class App extends Component {
     
   </div>
 </nav> 
-<Login></Login>
+<User></User>
             </div>
         );
     }

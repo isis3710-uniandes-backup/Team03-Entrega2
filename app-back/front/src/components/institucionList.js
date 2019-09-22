@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Institucion from './institucion';
+import CardInstitucion from './cardInstitucion';
 
 class InstitucionList extends Component {
     state={
@@ -15,8 +15,12 @@ class InstitucionList extends Component {
     render() {
         
         return (
-            <div>
-                <p>Hola</p>
+            <div class="row">
+                           {this.state.list.map((e,i)=>
+                               
+                              <CardInstitucion value={e} key={i}></CardInstitucion>
+                            )}
+
             </div>
         );
     }

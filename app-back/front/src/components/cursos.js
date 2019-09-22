@@ -3,20 +3,20 @@ import Curso from './curso';
 
 class cursos extends Component {
     state={
-        name:decodeURIComponent(this.props.value.name),
-        list:[]
+        list: this.props.value.e
     }
-    componentDidMount(){
+    componentWillReceiveProps(nextProps){
 
-        fetch("/instituciones/"+this.state.name+"/cursos").then(res => res.json()).then(m=>{console.log(m);console.log("2");this.setState({
-            list:m
+        this.setState({
+            list: nextProps.value.e,
             
-        })});
+        });
     }
     render() {
         return (
             <div class="accordion" id="accordionExample">
-              {this.state.list.map((e,i)=><Curso key={i} value={e} />)}
+              {console.log(this.state.list),
+                this.state.list.map((e,i)=><Curso key={i} value={e} />)}
             
             </div>
    
