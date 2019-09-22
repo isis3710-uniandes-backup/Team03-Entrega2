@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 //Ejemplo conexion mongoDB
 const MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 const uri = "mongodb+srv://admin:admin@proyectoweb-n33pf.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true});
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 var conn = client.connect();
 
 
@@ -19,11 +20,11 @@ router.get('/', function (req, res, next) {
 /* GET one institution */
 router.get('/:nombre', (req, res, next) => {
     conn.then(client => {
-        client.db("Idioma").collection("Institucion").find({nombre:req.params.nombre}).toArray((err,data)=>{
-            if(data === 0){
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            if (data === 0) {
                 res.status(404).send("No existe esa institucion");
             }
-            else{
+            else {
                 res.send(data[0]);
             }
         });
@@ -31,52 +32,104 @@ router.get('/:nombre', (req, res, next) => {
 });
 
 /* POST one institution */
-router.post('/', (req,res,next) => {
+router.post('/', (req, res, next) => {
     conn.then(client => {
-        client.db("Idioma").collection("Institucion").find({nombre:req.body.nombre}).toArray((err,data)=>{
-            if(data.length === 0){
+        client.db("Idioma").collection("Institucion").find({ nombre: req.body.nombre }).toArray((err, data) => {
+            if (data.length === 0) {
                 client.db("Idioma").collection("Institucion").insertOne({
-                    nombre:req.body.nombre,
-                    sedes:req.body.sedes?req.body.sedes:[],
-                    calificaciones:[],
-                    cursos:[]
+                    nombre: req.body.nombre,
+                    sedes: req.body.sedes ? req.body.sedes : [],
+                    calificaciones: [],
+                    cursos: [],
+                    descripcion: req.body.descripcion,
+                    correo: req.body.correo
                 }).then(result => {
                     agregarCursos(req.body.cursos, req.body.nombre);
                     res.send("Se ha agregado correctamente la institución");
                 });
             }
-            else
-            {
+            else {
                 res.status(409).send("Ya existe esa institución");
             }
         });
-        
+
     });
 });
 
-function agregarCursos(cursos, nombre){
-    for(let i of cursos){
-        client.db("Idioma").collection("Cursos").insertOne(i).then(resp =>{
-            client.db("Idioma").collection("Institucion").updateOne({nombre:nombre}, {$addToSet : {cursos:i}});
+function agregarCursos(cursos, nombre) {
+    for (let i of cursos) {
+        client.db("Idioma").collection("Cursos").insertOne(i).then(resp => {
+            i._id = ObjectId(resp.insertedId);
+            client.db("Idioma").collection("Institucion").updateOne({ nombre: nombre }, { $addToSet: { cursos: i } });
         });
     }
 }
 
+router.put("/:nombre", (req, res) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            if (data.length === 0) {
+                res.status(404).send("No existe esa institución");
+                return;
+            }
+            delete req.body.calificaciones
+            client.db("Idioma").collection("Institucion").updateOne({ nombre: req.params.nombre }, { $set: req.body });
+            actualizarCursos(req.body.cursos);
+            res.send("Institucion actualizada");
+        });
+    });
+});
+
+function actualizarCursos(cursos) {
+    for (let i of cursos) {
+        console.log(i);
+        ide = i["_id"];
+        delete i["_id"];
+        client.db("Idioma").collection("Cursos").updateOne({_id:ObjectId(ide)},{$set:i});
+    }
+}
+
+router.delete("/:nombre", (req, res) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            if (data.length === 0) {
+                res.status(404).send("No existe esa institución");
+                return;
+            }
+            eliminarCursos(data[0].cursos);
+            eliminarCalificaciones(data[0].calificaciones);
+            client.db("Idioma").collection("Institucion").deleteOne({ nombre: req.params.nombre }).then(rest => {
+                res.send("Institución eliminada");
+            });
+        });
+    });
+});
+
+function eliminarCursos(cursos) {
+    for (let i of cursos) {
+        client.db("Idioma").collection("Cursos").deleteOne({ _id: ObjectId(i["_id"]) });
+    }
+}
+
+function eliminarCalificaciones(califs) {
+    for (let i of califs) {
+        client.db("Idioma").collection("Calificaciones").deleteOne({ _id: ObjectId(i["_id"]) });
+    }
+}
+
+//DESDE ACA SE MANEJAN LOS CURSOS DE UNA INSTITUCION
 /* POST one course of one institution */
-router.post('/:nombre/cursos/', (req,res,next) => {
-    client.connect(err => {
-        client.db("Idioma").collection("Institucion").find({nombre:req.params.nombre}).toArray((err,data) =>{
-            if(data.length === 0){
-                client.close();
+router.post('/:nombre/cursos/', (req, res, next) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            if (data.length === 0) {
                 res.status(404).send("No existe esa institución");
             }
-            else
-            {
-                client.db("Idioma").collection("Cursos").insertOne(req.body).then(resp =>{
-                    client.db("Idioma").collection("Cursos").find({_id:resp.insertedId}).toArray((err,data) => {
-                        client.db("Idioma").collection("Institucion").updateOne({nombre:req.params.nombre}, {$addToSet: {cursos:data[0]}});
+            else {
+                client.db("Idioma").collection("Cursos").insertOne(req.body).then(resp => {
+                    client.db("Idioma").collection("Cursos").find({ _id: ObjectId(resp.insertedId) }).toArray((err, data) => {
+                        client.db("Idioma").collection("Institucion").updateOne({ nombre: req.params.nombre }, { $addToSet: { cursos: data[0] } });
                         res.send("Se ha agregado el curso");
-                        client.close();
                     });
                 });
             }
@@ -85,11 +138,72 @@ router.post('/:nombre/cursos/', (req,res,next) => {
 });
 
 router.get('/:nombre/cursos', (req, res, next) => {
-    client.connect(err => {
-        client.db("Idioma").collection("Institucion").find({nombre:req.params.nombre}).toArray((err,data)=>{
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
             res.send(data[0]["cursos"]);
         });
-        client.close();
+    });
+});
+
+router.put("/:nombre/cursos/:id", (req, res) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            if (data.length === 0) {
+                res.status(404).send("No existe esa institución");
+            }
+            else {
+                let cursos = data.cursos;
+                for (let cur in cursos) {
+                    if (cursos[cur]["_id"] === ObjectId(req.params.id)) {
+                        break;
+                    }
+                    else if (cur === cursos.length - 1) {
+                        res.status(404).send("No existe este curso, o no existe en esta institución");
+                        return;
+                    }
+                }
+                req.body._id = ObjectId(req.params.id);
+                client.db("Idioma").collection("Institucion").updateOne({ nombre: req.params.nombre, "cursos._id": ObjectId(req.params.id) }, { $set: { "cursos.$": req.body } }).then(resp => {
+                    client.db("Idioma").collection("Cursos").updateOne({ _id: ObjectId(req.params.id) }, { $set: req.body });
+                    res.send("Se ha modificado el curso");
+                });
+            }
+        });
+    });
+});
+
+router.delete("/:nombre/cursos/:id", (req, res) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            if (data.length === 0) {
+                res.status(404).send("No existe esa institución");
+            }
+            else {
+                let cursosExt = data.cursos;
+                for (let cur in cursosExt) {
+                    if (cursosExt[cur]["_id"] === ObjectId(req.params.id)) {
+                        cursosExt.splice(cur,1);
+                        break;
+                    }
+                    else if (cur === cursosExt.length - 1) 
+                    {
+                        res.status(404).send("No existe este curso, o no existe en esta institución");
+                        return;
+                    }
+                }
+                console.log(cursosExt);
+                client.db("Idioma").collection("Cursos").deleteOne({ _id: ObjectId(req.params.id) }).then(rest => {
+                    if (rest.deletedCount === 0) {
+                        res.status(404).send("No existe el curso");
+                    }
+                    else {
+                        client.db("Idioma").collection("Institucion").updateOne({ nombre: req.params.nombre}, { $set: { cursos: cursosExt } }).then(resp => {
+                            res.send("Se ha eliminado el curso");
+                        });
+                    }
+                });
+            }
+        });
     });
 });
 
