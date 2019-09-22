@@ -1,5 +1,6 @@
 var express = require('express');
 
+var ob= require('mongodb').ObjectID;
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://admin:admin@proyectoweb-n33pf.mongodb.net/test?retryWrites=true&w=majority";
@@ -113,7 +114,15 @@ function getCalificaciones(callback, nombre)
 {
     conn.then(cliente =>{
         cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
-            callback(data[0]["calificaciones"]);
+            
+           
+            cliente.db("Idioma").collection("Calificaciones").find({_id:ob(data[0].calificaciones[0])}).toArray((err, data)=>{
+                callback(data)
+            })
+
+            
+            
+            
         })
     })
 }
