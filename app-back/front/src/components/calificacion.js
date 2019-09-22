@@ -7,8 +7,17 @@ class calificacion extends Component {
         puntaje:this.props.value.puntaje,
 
     }
+    componentWillReceiveProps(nextProps){
+
+        this.setState({
+            descripcion:nextProps.value.descripcion,
+        puntaje:nextProps.value.puntaje,
+
+        });
+    }
     render() {
         return (
+            <div class="calificacion">
             <div class="row">
                 <div class="col-3">
                 <img src={this.state.image} className="img-fluid" alt="Institution" width="300" height="300"></img>
@@ -21,6 +30,7 @@ class calificacion extends Component {
 <h5>{this.state.descripcion}</h5>
 
                 </div>
+            </div>
             </div>
         );
     }

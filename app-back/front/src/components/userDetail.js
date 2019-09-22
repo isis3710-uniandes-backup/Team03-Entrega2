@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cursos from './cursos';
+import Calificaciones from './calificaciones';
 
 class userDetail extends Component {
     state ={
@@ -12,7 +13,10 @@ class userDetail extends Component {
     }
     componentWillReceiveProps(nextProps){
 
-        fetch("/usuarios/"+nextProps.value.usuario+"/").then(res => res.json()).then(m=>{console.log(m);console.log("2");this.setState({
+        fetch("/usuarios/"+nextProps.value.usuario+"/").then(res => res.json()).then(m=>{
+            console.log(m);
+            console.log("2");
+            this.setState({
             usuario : m.usuario,
             password : m.password,
             correo:m.correo,
@@ -20,7 +24,13 @@ class userDetail extends Component {
             rol:m.rol,
             calificaciones:m.calificaciones
             
+        });
+        fetch("/usuarios/"+nextProps.value.usuario+"/calificaciones").then(res => res.json()).then(n=>{console.log(n);console.log("2");this.setState({
+            calificaciones:n
+            
         })});
+    });
+        
     }
     render() {
         return (
@@ -43,10 +53,17 @@ class userDetail extends Component {
                     <h3>Password:       {this.state.password} </h3>
 <br></br>
 <br></br>
+<div class="contenedor">
+<h2>Cursos</h2>
+
                     <Cursos value={{e:this.state.cursos}}></Cursos>
+                    <br></br>
+                <br></br>
+                    <Calificaciones value={{calificaciones:this.state.calificaciones}}></Calificaciones>
                     </div>
 
                   
+            </div>
             </div>
             </div>
         );

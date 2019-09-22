@@ -4,6 +4,7 @@ import InstitucionList from './institucionList';
 import Institucion from './institucion';
 import Cursos from './cursos';
 import User from './user';
+import userDetail from './userDetail';
 
 class App extends Component {
     render() {
