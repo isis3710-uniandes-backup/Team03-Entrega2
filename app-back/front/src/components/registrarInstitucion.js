@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 
 class RegistrarInstitucion extends Component {
@@ -14,6 +15,7 @@ class RegistrarInstitucion extends Component {
                 cursos: [],
                 descripcion: "",
                 correo: "",
+                redirect:false,
             
             hasAgreed: false
         }
@@ -33,7 +35,11 @@ class RegistrarInstitucion extends Component {
             [name]:value 
         });
     }
-
+    renderRedirect = () => { 
+        if (this.state.redirect) { 
+          return <Redirect to = '/instituciones' /> 
+        } 
+      } 
     handleSubmit=(e)=>{
         e.preventDefault();
         
@@ -60,7 +66,9 @@ class RegistrarInstitucion extends Component {
           }).then(res => res.json())
           .catch(error => console.error('Error:', error))
           .then(response => {console.log('Success:', response);
-          window.location.href = ('/instituciones/');});
+          this.setState ({ 
+            redirect: true 
+          }) });
     }
 
     render() {
@@ -121,6 +129,8 @@ class RegistrarInstitucion extends Component {
                     </div>
                 </form>
                 </div>
+                {this.renderRedirect ()} 
+                
                 </div>
                
             

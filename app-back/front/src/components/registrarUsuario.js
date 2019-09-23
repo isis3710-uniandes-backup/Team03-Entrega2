@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 
 class RegistrarUsuario extends Component {
@@ -8,7 +9,8 @@ class RegistrarUsuario extends Component {
             email:'',
             password:'',
             name:'',
-            hasAgreed: false
+            hasAgreed: false,
+            redirect:false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -41,9 +43,15 @@ class RegistrarUsuario extends Component {
           }).then(res => res.json())
           .catch(error => console.error('Error:', error))
           .then(response => {console.log('Success:', response);
-          window.location.href = ('/login');});
+          this.setState ({ 
+            redirect: true 
+          }) });
     }
-
+    renderRedirect = () => { 
+        if (this.state.redirect) { 
+          return <Redirect to = '/login' /> 
+        } 
+      } 
     render() {
         return (
             <div>
@@ -71,6 +79,7 @@ class RegistrarUsuario extends Component {
                     </div>
                 </form>
                 </div>
+                {this.renderRedirect ()} 
                 </div>
                 </div>
             </div>
