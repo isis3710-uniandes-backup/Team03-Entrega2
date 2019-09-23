@@ -56,6 +56,16 @@ background-size: cover;
     transform: translate(-50%, -50%);
 }
 #divlogin{
+    align-self: center;
+
+}
+#regins{
+    align-self: center;
+    align-content: center;
+    margin:10%;
+    background: #ffffff;
+}
+.divlogin{
     position: fixed;
     top: 20%;
     left: 40%;
