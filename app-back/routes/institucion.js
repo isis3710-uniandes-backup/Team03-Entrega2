@@ -38,6 +38,7 @@ router.post('/', (req, res, next) => {
             if (data.length === 0) {
                 client.db("Idioma").collection("Institucion").insertOne({
                     nombre: req.body.nombre,
+                    horario: req.body.horario,
                     sedes: req.body.sedes ? req.body.sedes : [],
                     calificaciones: [],
                     cursos: [],

@@ -166,6 +166,7 @@ app.post("/:login/cursos", (req, res) => {
     conn.then(cliente => {
         cliente.db("Idioma").collection("Cursos").find({ _id: ob(body.id) }, (err, data) => {
             cliente.db("Idioma").collection("Usuarios").updateOne({ usuario: nombre }, { $addToSet: { cursos: data[0] } });
+            res.send("Curso agregado");
         });
     })
 })
@@ -175,6 +176,7 @@ app.delete("/:login/cursos/:id", (req, res) => {
     let idCurso = req.params.id
     conn.then(cliente => {
         cliente.db("Idioma").collection("Usuarios").updateOne({ usuario: login }, { $pull: {cursos: {_id:ob(idCurso)} } });
+        res.send("Curso borrado");
     })
 })
 
