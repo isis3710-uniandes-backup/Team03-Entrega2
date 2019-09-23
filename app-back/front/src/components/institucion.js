@@ -36,15 +36,27 @@ class Institucion extends Component {
         
     });
       }
-      addCalificacion(){
+      addCalificacion= (event) =>{
+
           let m={
         "usuario":"usuario1",
           "calificacion":{
-              "puntaje": 0,
-              "descripcion": 12
+              "puntaje": document.getElementById("pun").value,
+              "descripcion": document.getElementById("descrip").value
           }};
 
-
+          var url = '/instituciones/'+this.state.nombre;
+          var data = m;
+          
+          fetch(url, {
+            method: 'POST', 
+            body: JSON.stringify(data), 
+            headers:{
+              'Content-Type': 'application/json'
+            }
+          }).then(res => res.json())
+          .catch(error => console.error('Error:', error))
+          .then(response => console.log('Success:', response));
       }
     render() {
         return (
@@ -93,15 +105,15 @@ class Institucion extends Component {
 
   <div className="form-group">
     <label >Puntaje</label>
-    <input type="puntaje" className="form-control" id="exampleInputEmail1"  placeholder="Enter puntaje"></input>
+    <input type="puntaje" className="form-control" id="pun"  placeholder="Enter puntaje"></input>
   </div>
   <div className="form-group">
     <label >Descripcion</label>
-    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea className="form-control" id="descrip" rows="3"></textarea>
   </div>
   
 </form>
-<button onClick={} type="submit" className="btn btn-primary">Submit</button>
+<button onClick={(event)=>{this.addCalificacion(event)} } type="submit" className="btn btn-primary">Submit</button>
 
 </div>
 
