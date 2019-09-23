@@ -113,16 +113,8 @@ app.get("/:login/calificaciones", (req,res)=>{
 function getCalificaciones(callback, nombre)
 {
     conn.then(cliente =>{
-        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
-            
-           
-            cliente.db("Idioma").collection("Calificaciones").find({_id:ob(data[0].calificaciones[0])}).toArray((err, data)=>{
-                callback(data)
-            })
-
-            
-            
-            
+        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre} ).toArray((err,data)=>{
+            callback(data[0]["calificaciones"])     
         })
     })
 }
