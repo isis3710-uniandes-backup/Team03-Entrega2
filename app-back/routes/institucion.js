@@ -179,10 +179,11 @@ router.delete("/:nombre/cursos/:id", (req, res) => {
             if (data.length === 0) {
                 res.status(404).send("No existe esa institución");
             }
-            else {
-                let cursosExt = data.cursos;
+            else 
+            {
+                let cursosExt = data[0].cursos;
                 for (let cur in cursosExt) {
-                    if (cursosExt[cur]["_id"] === ObjectId(req.params.id)) {
+                    if (cursosExt[cur]["_id"].toString() === req.params.id) {
                         cursosExt.splice(cur,1);
                         break;
                     }
@@ -192,8 +193,6 @@ router.delete("/:nombre/cursos/:id", (req, res) => {
                         return;
                     }
                 }
-                
-                
                 client.db("Idioma").collection("Cursos").deleteOne({ _id: ObjectId(req.params.id) }).then(rest => {
                     if (rest.deletedCount === 0) {
                         res.status(404).send("No existe el curso");
@@ -219,7 +218,7 @@ router.get('/:nombre/calificaciones', (req, res, next) => {
     });
 });
 
-router.post('/:nombre/calificaciones/', (req, res, next) => {
+router.post('/:nombre/calificaciones', (req, res, next) => {
     conn.then(client => {
         client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
             if (data.length === 0) {

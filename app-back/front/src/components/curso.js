@@ -4,7 +4,7 @@ class Curso extends Component {
     state={
         idioma: this.props.value.idioma,
         dificultad: this.props.value.dificultad,
-        costo: this.props.value.costo
+        precio: this.props.value.precio
     }
     render() {
         return (
@@ -31,7 +31,7 @@ class Curso extends Component {
             <h2 >{this.state.idioma} </h2> 
             
             <h5>Dificultad: {this.state.dificultad}</h5>
-            <h5>Costo: {this.state.costo}</h5>
+            <h5>Costo: {this.state.precio}</h5>
             </div>
             </div>
       </div>

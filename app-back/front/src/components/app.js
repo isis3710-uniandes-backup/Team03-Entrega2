@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Login from './login';
 import { Route, Switch } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button, NavItem } from 'react-bootstrap';
 
 import InstitucionList from './institucionList';
 import Institucion from './institucion';
-import Cursos from './cursos';
 import User from './user';
+
 import userDetail from './userDetail';
 import Home from './home';
 import Registrar  from './registrarUsuario';
@@ -40,8 +39,12 @@ class App extends Component {
   </div>
       <div>
         
-        <Switch>
+
+            
+<Switch>
           <Route exact path='/' component={Home}/>
+          <Route path='/instituciones/:institucion' component={Institucion}/>
+          <Route path='/login' component={User}/>
           <Route path='/instituciones' component={InstitucionList}/>
           <Route path='/user' component={User}/>
           <Route path='/registrar' component={Registrar}/>

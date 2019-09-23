@@ -1,24 +1,24 @@
 var express = require('express');
 
-var ob= require('mongodb').ObjectID;
+var ob = require('mongodb').ObjectID;
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://admin:admin@proyectoweb-n33pf.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 var conn = client.connect();
 
 let app = express();
 
 /*Obtener todos los usuarios*/
-app.get("/",(req,res)=>{
-    getAll((data)=>{
+app.get("/", (req, res) => {
+    getAll((data) => {
         res.send(data);
     })
 })
 
-function getAll(callback){
-    conn.then(cliente =>{
-        cliente.db("Idioma").collection("Usuarios").find({}).toArray((err,data)=>{
+function getAll(callback) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").find({}).toArray((err, data) => {
             callback(data);
         })
     })
@@ -26,74 +26,72 @@ function getAll(callback){
 
 
 /*Obtener un usuario especifico */
-app.get("/:login",(req,res)=>{
+app.get("/:login", (req, res) => {
 
     var nombre = req.params.login;
 
-    getUsuario((data)=>{
+    getUsuario((data) => {
         res.send(data);
-    },nombre)
+    }, nombre)
 })
 
-function getUsuario(callback,nombre){
-    conn.then(cliente =>{
-        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
+function getUsuario(callback, nombre) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").find({ usuario: nombre }).toArray((err, data) => {
             callback(data[0]);
         })
     })
 }
 
-app.post("/", (req,res)=>{
+app.post("/", (req, res) => {
     var datos = req.body;
-    write((data)=>{
+    write((data) => {
         res.send(data);
-    },datos)
+    }, datos)
 })
 
-function write(callback,datos){
-    conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").find({usuario:datos.usuario}).toArray((err,data)=>{
-            if(data.length ===0){
-                cliente.db("Idioma").collection("Usuarios").insertOne(datos,(info)=>{
+function write(callback, datos) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").find({ usuario: datos.usuario }).toArray((err, data) => {
+            if (data.length === 0) {
+                cliente.db("Idioma").collection("Usuarios").insertOne(datos, (info) => {
                     callback(info);
                 });
-                
+
             }
-            else 
-            {
+            else {
                 callback("Ese nombre de usuario ya existe, por favor elegir otro");
             }
         })
     })
 }
 
-app.put("/:login",(req,res)=>{
+app.put("/:login", (req, res) => {
     var nombre = req.params.login;
     var datos = req.body;
-    update((data)=>{
+    update((data) => {
         res.send(data);
-    },nombre,datos)
+    }, nombre, datos)
 })
 
-function update(callback, nombre,datos){
-    conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").updateOne({usuario:nombre},{$set:{password:datos.password,correo:datos.correo},upsert:true}, (data)=>{
+function update(callback, nombre, datos) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").updateOne({ usuario: nombre }, { $set: { password: datos.password, correo: datos.correo }, upsert: true }, (data) => {
             callback(data);
         })
     })
 }
 
-app.delete("/:login",(req,res)=>{
+app.delete("/:login", (req, res) => {
     var nombre = req.params.login;
-    borrar((data)=>{
+    borrar((data) => {
         res.send(data);
-    },nombre)
+    }, nombre)
 });
 
-function borrar(callback, nombre)
-{
-    conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").deleteOne({usuario:nombre},info=>{
+function borrar(callback, nombre) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").deleteOne({ usuario: nombre }, info => {
             callback(info);
         })
     })
@@ -101,45 +99,45 @@ function borrar(callback, nombre)
 
 /*Metodos para Calificaciones*/
 
-app.get("/:login/calificaciones", (req,res)=>{
+app.get("/:login/calificaciones", (req, res) => {
     var nombre = req.params.login;
 
-    getCalificaciones((data)=>{
+    getCalificaciones((data) => {
         res.send(data)
-    },nombre)
+    }, nombre)
 
 })
 
-function getCalificaciones(callback, nombre)
-{
-    conn.then(cliente =>{
-        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre} ).toArray((err,data)=>{
-            callback(data[0]["calificaciones"])     
+function getCalificaciones(callback, nombre) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").find({ usuario: nombre }).toArray((err, data) => {
+            callback(data[0]["calificaciones"])
         })
     })
 }
 
-app.post("/:login/calificaciones/", (req,res)=>{
+app.post("/:login/calificaciones/", (req, res) => {
     var nombre = req.params.login;
     var datos = req.body;
-    writeCalificacion((data)=>{
+    writeCalificacion((data) => {
         res.send(data);
-    },nombre ,datos)
+    }, nombre, datos)
 })
 
-function writeCalificacion(callback,nombre,datos){
-    conn.then(cliente=>{
-        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
-            if(data.length ===0){
+function writeCalificacion(callback, nombre, datos) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").find({ usuario: nombre }).toArray((err, data) => {
+            if (data.length === 0) {
                 callback("No se encuentra ese usuario");
             }
-            else 
-            {
-                cliente.db("Idioma").collection("Calificaciones").insertOne(datos).then(resp=>{
-                    cliente.db("Idioma").collection("Calificaciones").find({_id:resp.insertedId}).toArray((err,data)=>{
-                        cliente.db("Idioma").collection("Usuarios").updateOne({usuario:nombre},{$addToSet:{
-                            calificaciones:data[0]
-                        }});
+            else {
+                cliente.db("Idioma").collection("Calificaciones").insertOne(datos).then(resp => {
+                    cliente.db("Idioma").collection("Calificaciones").find({ _id: resp.insertedId }).toArray((err, data) => {
+                        cliente.db("Idioma").collection("Usuarios").updateOne({ usuario: nombre }, {
+                            $addToSet: {
+                                calificaciones: data[0]
+                            }
+                        });
                         callback("Calificacion añadida");
                     })
                 })
@@ -149,86 +147,35 @@ function writeCalificacion(callback,nombre,datos){
 }
 
 /** cursos*/
-function obtenerCursos(callback,nombre){
-
-    conn.then(cliente=>{
-
-
-        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
-
-
+function obtenerCursos(callback, nombre) {
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").find({ usuario: nombre }).toArray((err, data) => {
             callback(data[0]["cursos"])
-        })
-    })
-}
-function registarCurso(callback, nombre,body)
-{
-  
-
+        });
+    });
 }
 
-function borrarCurso(callback,login,idCurso)
-{
-    conn.then(cliente=>{
-
-        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
-
-            if(data.length===0)
-            {
-                callback("No existe el usuario")
-            }
-            else
-            {
-                
-
-               
-
-
-            }
-
-           
-        })
-
-
-    })
-
-           
-        
-}
-
-app.get(("/:login/cursos"),(req,res)=>{
-let datos= req.params.login
-
-obtenerCursos(data=>{res.send(data)},datos)
-
-
+app.get(("/:login/cursos"), (req, res) => {
+    let datos = req.params.login;
+    obtenerCursos(data => { res.send(data) }, datos);
 });
 
-app.post("/:login/cursos",(req,res)=>{
-
-
-let nombre=req.params.login
-let body =req.body
-conn.then(cliente=>
-    {
-        cliente.db("Idioma").collection("Usuarios").updateOne({ nombre: nombre }, { $addToSet: { cursos: body } })
+app.post("/:login/cursos", (req, res) => {
+    let nombre = req.params.login;
+    let body = req.body;
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Cursos").find({ _id: ob(body.id) }, (err, data) => {
+            cliente.db("Idioma").collection("Usuarios").updateOne({ usuario: nombre }, { $addToSet: { cursos: data[0] } });
+        });
     })
 })
-        
-               
-        
-       
 
-       
-    
-
-app.delete("/:login/curso/:id",(req, res)=>
-{
-    let login=req.params.login
-    let idCurso=req.params.id
-borrarCurso((data)=>res.send(data),login,id)
-
-
+app.delete("/:login/curso/:id", (req, res) => {
+    let login = req.params.login
+    let idCurso = req.params.id
+    conn.then(cliente => {
+        cliente.db("Idioma").collection("Usuarios").updateOne({ usuario: login }, { $pull: {cursos: {_id:ob(idCurso)} } });
+    })
 })
 
 module.exports = app;
