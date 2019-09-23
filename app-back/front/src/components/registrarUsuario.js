@@ -14,7 +14,7 @@ class RegistrarUsuario extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(e){
+    handleChange=(e)=>{
         let target = e.target;
 
         let value = target.type === 'checkbox' ? target.checked:target.value;
@@ -26,9 +26,9 @@ class RegistrarUsuario extends Component {
         });
     }
 
-    handleSubmit(e){
-        e.preventDefalt();
-        var data = {usuario:document.getElementById("name").name,password:document.getElementById("password").password,email:document.getElementById("email").email}
+    handleSubmit=(e)=>{
+        e.preventDefault();
+        var data = {usuario:document.getElementById("name").name,password:document.getElementById("password").password,email:document.getElementById("email").email, cursos:[],calificaciones:[], rol:"USUARIO"}
         fetch('/usuarios/', {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
@@ -52,18 +52,18 @@ class RegistrarUsuario extends Component {
                 <form onSubmit={this.handleSubmit} className="form-group">
                     <div >
                         <label >Nombre Completo</label>
-                        <input type="text" id="name" className="form-control" placeholder="Nombre Completo"  onChange={this.handleChange}></input>
+                        <input type="text" id="name" className="form-control" placeholder="Nombre Completo"  ></input>
                     </div>
                     <div >
                         <label >Contraseña</label>
-                        <input type="password" id="password" className="form-control" placeholder="Ingresa tu contraseña"  onChange={this.handleChange}></input>
+                        <input type="password" id="password" className="form-control" placeholder="Ingresa tu contraseña" ></input>
                     </div>
                     <div >
                         <label >Email</label>
-                        <input type="text" id="email" className="form-control" placeholder="email"  onChange={this.handleChange}></input>
+                        <input type="text" id="email" className="form-control" placeholder="email"  ></input>
                     </div>
                     <div >
-                        <button className="btn btn-primary">Registrarse</button>
+                        <button onClick = { (event)=>{this.handleSubmit(event)} } className="btn btn-primary">Registrarse</button>
                     </div>
                 </form>
                 </div>
