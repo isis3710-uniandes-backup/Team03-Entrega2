@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class RegistrarUsuario extends Component {
     constructor(){
         super();
-        state ={
+        this.state ={
             email:'',
             password:'',
             name:'',
@@ -42,25 +42,33 @@ class RegistrarUsuario extends Component {
 
     render() {
         return (
-            <div className="FormCenter">
-                <form onSubmit={this.handleSubmit} className="FormFields">
-                    <div className="FormField">
-                        <label className="FormField_Label">Nombre Completo</label>
-                        <input type="text" id="name" className="FormField_Input" placeholder="Nombre Completo" value={this.state.name} onChange={this.handleChange}/>
+            <div>
+            <br></br>
+            <br></br>
+            <div  className="col-8">  
+            <div id="divlogin" className="text-center">
+            <div >
+                
+                <form onSubmit={this.handleSubmit} >
+                    <div >
+                        <label >Nombre Completo</label>
+                        <input type="text" id="name" className="form-control" placeholder="Nombre Completo" value={this.state.name} onChange={this.handleChange}></input>
                     </div>
-                    <div className="FormField">
-                        <label className="FormField_Label">Contraseña</label>
-                        <input type="password" id="password" className="FormField_Input" placeholder="Ingresa tu contraseña" value={this.state.password} onChange={this.handleChange}/>
+                    <div >
+                        <label >Contraseña</label>
+                        <input type="password" id="password" className="form-control" placeholder="Ingresa tu contraseña" value={this.state.password} onChange={this.handleChange}></input>
                     </div>
-                    <div className="FormField">
-                        <label className="FormField_Label">Email</label>
-                        <input type="text" id="email" className="FormField_Input" placeholder="email" value={this.state.email} onChange={this.handleChange}/>
+                    <div >
+                        <label >Email</label>
+                        <input type="text" id="email" className="form-control" placeholder="email" value={this.state.email} onChange={this.handleChange}></input>
                     </div>
-                    <div className="FormField">
-                        <button className="FormField_Button">Registrarse</button>
+                    <div >
+                        <button class="btn btn-success">Registrarse</button>
                     </div>
                 </form>
-                
+                </div>
+                </div>
+                </div>
             </div>
         );
     }
