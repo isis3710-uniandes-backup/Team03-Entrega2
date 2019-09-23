@@ -63,9 +63,9 @@ class userDetail extends Component {
                     <div className="col-4"><h1>{this.state.usuario} </h1> </div>
                     <div id="cerrar"className="col-5">
 
-                    <a onClick={(event)=>{this.exitAutentication(event)}} className="btn btn-info btn-lg">
-          <span className="glyphicon glyphicon-log-out"></span> Log out
-        </a>
+                    <button onClick={(event)=>{this.exitAutentication(event)}} type="submit" className="btn btn-primary">Log out</button>
+
+                    
                     </div>
                     </div>
                     <br></br>
