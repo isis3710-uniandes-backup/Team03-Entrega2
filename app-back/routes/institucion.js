@@ -181,6 +181,7 @@ router.delete("/:nombre/cursos/:id", (req, res) => {
             }
             else {
                 let cursosExt = data.cursos;
+                console.log("pre " + cursosExt);
                 for (let cur in cursosExt) {
                     if (cursosExt[cur]["_id"] === ObjectId(req.params.id)) {
                         cursosExt.splice(cur,1);
@@ -192,7 +193,7 @@ router.delete("/:nombre/cursos/:id", (req, res) => {
                         return;
                     }
                 }
-                
+                console.log("post " + cursosExt);
                 
                 client.db("Idioma").collection("Cursos").deleteOne({ _id: ObjectId(req.params.id) }).then(rest => {
                     if (rest.deletedCount === 0) {
@@ -219,7 +220,7 @@ router.get('/:nombre/calificaciones', (req, res, next) => {
     });
 });
 
-router.post('/:nombre/calificaciones/', (req, res, next) => {
+router.post('/:nombre/calificaciones', (req, res, next) => {
     conn.then(client => {
         client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
             if (data.length === 0) {
