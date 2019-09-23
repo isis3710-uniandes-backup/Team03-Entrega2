@@ -12,4 +12,4 @@
 Link: https://youtu.be/epo9tjZqGq8
 utm_source=v1_shareDialog2_whatsapp&utm_source=v1_shareDialog2_&utm_campaign=fp_test2_pricing_pagecopy
 
-### Dominio: ec2-3-92-199-136.compute-1.amazonaws.com:3001
+### Dominio: ec2-18-234-221-24.compute-1.amazonaws.com:3001
