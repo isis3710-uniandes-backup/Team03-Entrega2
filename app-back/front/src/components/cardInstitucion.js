@@ -10,8 +10,9 @@ class cardInstitucion extends Component {
             <div class="card" >
             <img src="https://images.vexels.com/media/users/3/152803/isolated/preview/7a26300dc9960e11f6a46966e696539d-escuela-cl--sica-ilustraci--n-de-edificio-by-vexels.png" class="card-img-top" alt="hola" width="50" height="400"></img>
             <div class="card-body">
-            <button type="submit" className="btn btn-primary">{this.state.nombre}</button>
-
+            <a href={"/instituciones/"+this.state.nombre}>  <button  className="btn btn-primary">{this.state.nombre}</button>
+</a>
+           
             </div>
             </div>
             </div>

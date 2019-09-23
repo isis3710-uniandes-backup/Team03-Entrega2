@@ -6,6 +6,34 @@ class Curso extends Component {
         dificultad: this.props.value.dificultad,
         precio: this.props.value.precio
     }
+    isLogin(){
+      console.log(localStorage.getItem("user"));
+      if(localStorage.getItem("user")==null){
+        return true;
+      }
+      return false;
+      
+    }
+    addCalificacion= () =>{
+     
+      let m=JSON.parse(localStorage.getItem("user"));
+
+      var url = '/usuarios/'+m.usuario+"/cursos";
+      var data = {idioma: this.state.idioma,
+        dificultad: this.state.dificultad,
+        precio: this.state.precio};
+      fetch(url, {
+        method: 'POST', 
+        body: JSON.stringify(data), 
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response =>{ console.log('Success:', response);
+      let g=this.state.calificaciones;
+      });
+  }
     render() {
         return (
             
@@ -16,6 +44,11 @@ class Curso extends Component {
         <button class="btn btn-link" type="button" data-toggle="collapse show" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
         {this.state.idioma}
         </button>
+        <div hidden={this.isLogin()}>
+        <button  onClick={this.addCalificacion} type="submit" className="btn btn-primary">Agregar Curso</button>
+
+        </div>
+        
       </h1>
     </div>
 

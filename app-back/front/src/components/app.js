@@ -34,6 +34,11 @@ class App extends Component {
                       <Nav.Link href="/registrar">Registrar</Nav.Link>
                   </NavItem>
               </Nav>
+              <Nav className="mr-auto">
+                  <NavItem eventkey={1} href="/instituciones">
+                      <Nav.Link href="/instituciones">Instituciones</Nav.Link>
+                  </NavItem>
+              </Nav>
           </Navbar.Collapse>
       </Navbar>
   </div>
