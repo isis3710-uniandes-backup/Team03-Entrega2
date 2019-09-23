@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Idioma from './idioma';
 
 class IdiomaList extends Component {
     state={
