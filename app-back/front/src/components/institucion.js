@@ -36,8 +36,8 @@ class Institucion extends Component {
         
     });
       }
-      addCalificacion= (event) =>{
-
+      addCalificacion= () =>{
+     
           let m={
         "usuario":"usuario1",
           "calificacion":{
@@ -45,9 +45,10 @@ class Institucion extends Component {
               "descripcion": document.getElementById("descrip").value
           }};
 
-          var url = '/instituciones/'+this.state.nombre;
+          var url = '/instituciones/'+this.state.nombre+"/calificaciones";
           var data = m;
-          
+          document.getElementById("pun").value="";
+          document.getElementById("descrip").value="";
           fetch(url, {
             method: 'POST', 
             body: JSON.stringify(data), 
@@ -56,7 +57,14 @@ class Institucion extends Component {
             }
           }).then(res => res.json())
           .catch(error => console.error('Error:', error))
-          .then(response => console.log('Success:', response));
+          .then(response =>{ console.log('Success:', response);
+          let g=this.state.calificaciones;
+          g.push(m.calificacion);
+          this.setState({
+            calificaciones:g
+            
+            
+        });});
       }
     render() {
         return (
@@ -113,7 +121,7 @@ class Institucion extends Component {
   </div>
   
 </form>
-<button onClick={(event)=>{this.addCalificacion(event)} } type="submit" className="btn btn-primary">Submit</button>
+<button onClick={this.addCalificacion} type="submit" className="btn btn-primary">Submit</button>
 
 </div>
 
