@@ -28,7 +28,7 @@ class RegistrarUsuario extends Component {
 
     handleSubmit=(e)=>{
         e.preventDefault();
-        var data = {usuario:document.getElementById("name").value,password:document.getElementById("password").value,email:document.getElementById("email").value, cursos:[],calificaciones:[], rol:"USUARIO"}
+        var data = {usuario:document.getElementById("name").value,password:document.getElementById("password").value,correo:document.getElementById("email").value, cursos:[],calificaciones:[], rol:"USUARIO"}
         fetch('/usuarios/', {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
