@@ -100,7 +100,7 @@ class Institucion extends Component {
 <br></br>
 <h2>Cursos</h2>
 
-<Cursos value={{e:this.state.cursos}}></Cursos>
+<Cursos value={{e:this.state.cursos}} v={false} v2={true}></Cursos>
 <br></br>
                 <br></br>
                     <Calificaciones value={{calificaciones:this.state.calificaciones}}></Calificaciones>

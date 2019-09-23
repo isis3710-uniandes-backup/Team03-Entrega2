@@ -77,7 +77,7 @@ class userDetail extends Component {
 <div className="contenedor">
 <h2>Cursos</h2>
 
-                    <Cursos value={{e:this.state.cursos}}></Cursos>
+                    <Cursos value={{e:this.state.cursos}} v={true} v2={false}></Cursos>
                     <br></br>
                 <br></br>
                     <Calificaciones value={{calificaciones:this.state.calificaciones}}></Calificaciones>
