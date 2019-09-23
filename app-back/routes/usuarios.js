@@ -165,6 +165,7 @@ app.post("/:login/cursos", (req, res) => {
     let body = req.body;
     conn.then(cliente => {
         cliente.db("Idioma").collection("Cursos").find({ _id: ob(body.id) }).toArray((err, data) => {
+            console.log(data[0]);
             cliente.db("Idioma").collection("Usuarios").updateOne({ usuario: nombre }, { $addToSet: { cursos: data[0] } });
             res.send("Curso agregado");
         });
