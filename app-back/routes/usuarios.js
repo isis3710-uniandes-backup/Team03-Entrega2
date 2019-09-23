@@ -170,7 +170,7 @@ app.post("/:login/cursos", (req, res) => {
     })
 })
 
-app.delete("/:login/curso/:id", (req, res) => {
+app.delete("/:login/cursos/:id", (req, res) => {
     let login = req.params.login
     let idCurso = req.params.id
     conn.then(cliente => {
