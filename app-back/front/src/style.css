@@ -9,7 +9,12 @@ background-size: cover;
 #contenedor{
    background: #ffffff;
 }
- 
+.contenedor{
+    background: #ffffff;
+ }
+.calificacion{
+    background: #ffffff;
+}
 .texto-encima{
     position: fixed;
     top: 75%;
