@@ -119,6 +119,15 @@ function eliminarCalificaciones(califs) {
 
 //DESDE ACA SE MANEJAN LOS CURSOS DE UNA INSTITUCION
 /* POST one course of one institution */
+
+router.get('/:nombre/cursos', (req, res, next) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            res.send(data[0]["cursos"]);
+        });
+    });
+});
+
 router.post('/:nombre/cursos/', (req, res, next) => {
     conn.then(client => {
         client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
@@ -133,14 +142,6 @@ router.post('/:nombre/cursos/', (req, res, next) => {
                     });
                 });
             }
-        });
-    });
-});
-
-router.get('/:nombre/cursos', (req, res, next) => {
-    conn.then(client => {
-        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
-            res.send(data[0]["cursos"]);
         });
     });
 });
@@ -207,5 +208,41 @@ router.delete("/:nombre/cursos/:id", (req, res) => {
         });
     });
 });
+
+//DESDE ACA SE MANEJAN LAS CALIFICACIONES DE UNA INSTITUCION
+
+router.get('/:nombre/calificaciones', (req, res, next) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Calificaciones").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            res.send(data[0]["calificaciones"]);
+        });
+    });
+});
+
+router.post('/:nombre/calificaciones/', (req, res, next) => {
+    conn.then(client => {
+        client.db("Idioma").collection("Institucion").find({ nombre: req.params.nombre }).toArray((err, data) => {
+            if (data.length === 0) {
+                res.status(404).send("No existe esa institución");
+            }
+            else if(!req.body.calificacion || !req.body.usuario){
+                res.status(422).send("La informacion enviada no es la esperada");
+            }
+            else 
+            {
+                client.db("Idioma").collection("Calificaciones").insertOne(req.body.calificacion).then(resp => {
+                    client.db("Idioma").collection("Calificaciones").find({ _id: ObjectId(resp.insertedId) }).toArray((err, data) => {
+                        client.db("Idioma").collection("Institucion").updateOne({ nombre: req.params.nombre }, {$addToSet:{calificaciones: data[0]}}).then(resp => {
+                            client.db("Idioma").collection("Usuarios").updateOne({usuario:req.body.usuario}, {$addToSet:{calificaciones: data[0]}});
+                            res.send("Se ha agregado la calificacion");
+                        });
+                    });
+                });
+            }
+        });
+    });
+});
+
+//NO SE IMPLEMENTA PUT NI DELETE, SE HA DEFINIDO QUE PARA EL NEGOCIO, ES MEJOR NO CAMBIAR NI ELIMINAR CALIFICACIONES
 
 module.exports = router;
