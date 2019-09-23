@@ -15,7 +15,7 @@ class cursos extends Component {
     render() {
         return (
             
-            <div class="accordion" id="accordionExample">
+            <div className="accordion" id="accordionExample">
               {console.log(this.state.list),
                 this.state.list.map((e,i)=><Curso key={i} value={e} />)}
             

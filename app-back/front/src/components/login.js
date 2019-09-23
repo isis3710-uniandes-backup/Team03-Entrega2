@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import auth from "../auth.js"
+
 class login extends Component {
     state={
       method: this.props.value,
@@ -23,7 +23,7 @@ class login extends Component {
      console.log((this.state.method));
      fetch(g).then(res => res.json()).then(m=>{
      console.log(m);
-     if(m.password==user.password){
+     if(m.password===user.password){
       localStorage.setItem("user",JSON.stringify(m));
       this.state.method(m,true);
   }
@@ -51,10 +51,10 @@ class login extends Component {
     <label >Password</label>
     <input id="passwordUser" type="password" className="form-control" placeholder="Enter password"></input>
   </div>
-  <div hidden={this.state.shouldHide} id="incorrecto" class="alert alert-danger" role="alert">
+  <div hidden={this.state.shouldHide} id="incorrecto" className="alert alert-danger" role="alert">
   Usuario o contraseña incorrectos, por favor intente de nuevo.
 </div>
-  <button onClick = { (event)=>{this.autentication(event)} } class="btn btn-primary">Submit</button>
+  <button onClick = { (event)=>{this.autentication(event)} } className="btn btn-primary">Submit</button>
 
 </form>
 

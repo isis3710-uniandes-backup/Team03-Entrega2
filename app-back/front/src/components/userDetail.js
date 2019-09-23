@@ -52,19 +52,19 @@ class userDetail extends Component {
                 <br></br>
                 <br></br>
             
-            <div class="row">
+            <div className="row">
                 
-                    <div class="col-3">
+                    <div className="col-3">
                     <img src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png" className="img-fluid" alt="Institution" width="300" height="300"></img>
 
                     </div>
-                    <div class="col-7">
-                    <div class="row">
-                    <div class="col-4"><h1>{this.state.usuario} </h1> </div>
-                    <div id="cerrar"class="col-5">
+                    <div className="col-7">
+                    <div className="row">
+                    <div className="col-4"><h1>{this.state.usuario} </h1> </div>
+                    <div id="cerrar"className="col-5">
 
-                    <a onClick={(event)=>{this.exitAutentication(event)}} class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-log-out"></span> Log out
+                    <a onClick={(event)=>{this.exitAutentication(event)}} className="btn btn-info btn-lg">
+          <span className="glyphicon glyphicon-log-out"></span> Log out
         </a>
                     </div>
                     </div>
@@ -74,7 +74,7 @@ class userDetail extends Component {
                     <h3>Password:       {this.state.password} </h3>
 <br></br>
 <br></br>
-<div class="contenedor">
+<div className="contenedor">
 <h2>Cursos</h2>
 
                     <Cursos value={{e:this.state.cursos}}></Cursos>

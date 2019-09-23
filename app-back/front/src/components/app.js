@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Navbar, Nav, Form, FormControl, Button, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import InstitucionList from './institucionList';
 import Institucion from './institucion';
 import User from './user';
 
-import userDetail from './userDetail';
 import Home from './home';
 import Registrar  from './registrarUsuario';
 

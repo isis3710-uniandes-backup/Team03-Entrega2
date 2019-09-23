@@ -31,7 +31,7 @@ class Curso extends Component {
       }).then(res => res.json())
       .catch(error => console.error('Error:', error))
       .then(response =>{ console.log('Success:', response);
-      let g=this.state.calificaciones;
+     
       });
   }
     render() {
