@@ -8,6 +8,7 @@ import User from './user';
 
 import Home from './home';
 import Registrar  from './registrarUsuario';
+import RegistrarInstitucion from './registrarInstitucion';
 
 
 class App extends Component {
@@ -41,6 +42,11 @@ class App extends Component {
                       <Nav.Link href="/instituciones">Instituciones</Nav.Link>
                   </NavItem>
               </Nav>
+              <Nav className="mr-auto">
+                  <NavItem eventkey={1} href="/registrarInstitucion">
+                      <Nav.Link href="/registrarInstitucion">Registrar Institucion</Nav.Link>
+                  </NavItem>
+              </Nav>
           </Navbar.Collapse>
       </Navbar>
   </div>
@@ -55,6 +61,7 @@ class App extends Component {
           <Route path='/instituciones' component={InstitucionList}/>
           <Route path='/user' component={User}/>
           <Route path='/registrar' component={Registrar}/>
+          <Route path='/registrarInstitucion' component={RegistrarInstitucion}/>
         </Switch>
       </div>
       </div>
