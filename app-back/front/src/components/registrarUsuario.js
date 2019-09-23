@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class RegistrarUsuario extends Component {
     constructor(){
         super();
@@ -29,6 +30,8 @@ class RegistrarUsuario extends Component {
     handleSubmit=(e)=>{
         e.preventDefault();
         var data = {usuario:document.getElementById("name").value,password:document.getElementById("password").value,correo:document.getElementById("email").value, cursos:[],calificaciones:[], rol:"USUARIO"}
+        localStorage.setItem("user",JSON.stringify(data));
+      
         fetch('/usuarios/', {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
@@ -37,7 +40,8 @@ class RegistrarUsuario extends Component {
             }
           }).then(res => res.json())
           .catch(error => console.error('Error:', error))
-          .then(response => console.log('Success:', response));
+          .then(response => {console.log('Success:', response);
+          window.location.href = ('/login');});
     }
 
     render() {
