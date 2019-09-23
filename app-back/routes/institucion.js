@@ -191,7 +191,8 @@ router.delete("/:nombre/cursos/:id", (req, res) => {
                         return;
                     }
                 }
-                console.log(cursosExt);
+                
+                
                 client.db("Idioma").collection("Cursos").deleteOne({ _id: ObjectId(req.params.id) }).then(rest => {
                     if (rest.deletedCount === 0) {
                         res.status(404).send("No existe el curso");

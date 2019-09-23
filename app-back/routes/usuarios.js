@@ -148,7 +148,87 @@ function writeCalificacion(callback,nombre,datos){
     })
 }
 
+/** cursos*/
+function obtenerCursos(callback,nombre){
+
+    conn.then(cliente=>{
 
 
+        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
+
+
+            callback(data[0]["cursos"])
+        })
+    })
+}
+function registarCurso(callback, nombre,body)
+{
+  
+
+}
+
+function borrarCurso(callback,login,idCurso)
+{
+    conn.then(cliente=>{
+
+        cliente.db("Idioma").collection("Usuarios").find({usuario:nombre}).toArray((err,data)=>{
+
+            if(data.length===0)
+            {
+                callback("No existe el usuario")
+            }
+            else
+            {
+                
+
+               
+
+
+            }
+
+           
+        })
+
+
+    })
+
+           
+        
+}
+
+app.get(("/:login/cursos"),(req,res)=>{
+let datos= req.params.login
+
+obtenerCursos(data=>{res.send(data)},datos)
+
+
+});
+
+app.post("/:login/cursos",(req,res)=>{
+
+
+let nombre=req.params.login
+let body =req.body
+conn.then(cliente=>
+    {
+        cliente.db("Idioma").collection("Usuarios").updateOne({ nombre: nombre }, { $addToSet: { cursos: body } })
+    })
+})
+        
+               
+        
+       
+
+       
+    
+
+app.delete("/:login/curso/:id",(req, res)=>
+{
+    let login=req.params.login
+    let idCurso=req.params.id
+borrarCurso((data)=>res.send(data),login,id)
+
+
+})
 
 module.exports = app;
