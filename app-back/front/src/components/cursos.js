@@ -16,7 +16,7 @@ class cursos extends Component {
         return (
             
             <div className="accordion" id="accordionExample">
-              {console.log(this.state.list),
+              {
                 this.state.list.map((e,i)=><Curso key={i} value={e} />)}
             
             </div>
