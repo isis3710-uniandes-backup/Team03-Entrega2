@@ -1,11 +1,40 @@
 import React, { Component } from 'react';
+import Home from './institucionList';
+import InstitucionList from './institucionList';
+
+
 
 class home extends Component {
+
+    
     render() {
         return (
-            <div>
+            <div className="container">
+                <div className="row">
+                    <div className="col-1"></div>
+                     <div className="col-5">
+                         <div className="cont-img">
+                         <img id="imghome"src="http://blog.infoempleo.com/media/2018/02/ThinkstockPhotos-646037264.jpg" alt="Italian Trulli"/>
+                         </div>
+                    </div>
+                    <div className="col-5">
+                    <h4 align="center"id="titulohome"> Encuentra el mejor lugar para aprender el idioma que deseas y descubre cursos con diferentes niveles de dificultad. Además tendrás la oportunidad de calificar los cursos que tomes</h4>
+
+                    <div className="col-1"></div>
+ 
+                </div>
                 
+               </div>
+               <div class="row">
+                          
+                               
+                              <InstitucionList ></InstitucionList>
+                         
+
             </div>
+            </div>
+            
+            
         );
     }
 }

@@ -8,7 +8,7 @@ class Curso extends Component {
     }
     isLogin(){
       console.log(localStorage.getItem("user"));
-      if(localStorage.getItem("user")==null){
+      if(localStorage.getItem("user")===null){
         return true;
       }
       return false;
@@ -19,9 +19,7 @@ class Curso extends Component {
       let m=JSON.parse(localStorage.getItem("user"));
 
       var url = '/usuarios/'+m.usuario+"/cursos";
-      var data = {idioma: this.state.idioma,
-        dificultad: this.state.dificultad,
-        precio: this.state.precio};
+      var data = {};
       fetch(url, {
         method: 'POST', 
         body: JSON.stringify(data), 
@@ -30,9 +28,8 @@ class Curso extends Component {
         }
       }).then(res => res.json())
       .catch(error => console.error('Error:', error))
-      .then(response =>{ console.log('Success:', response);
-      let g=this.state.calificaciones;
-      });
+      .then(response =>{console.log('Success:', response)
+    });
   }
     render() {
         return (
