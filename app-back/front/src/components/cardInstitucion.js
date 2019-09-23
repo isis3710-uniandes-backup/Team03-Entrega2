@@ -6,10 +6,10 @@ class cardInstitucion extends Component {
     }
     render() {
         return (
-            <div class="col-5">
-            <div class="card" >
-            <img src="https://images.vexels.com/media/users/3/152803/isolated/preview/7a26300dc9960e11f6a46966e696539d-escuela-cl--sica-ilustraci--n-de-edificio-by-vexels.png" class="card-img-top" alt="hola" width="50" height="400"></img>
-            <div class="card-body">
+            <div className="col-5">
+            <div className="card" >
+            <img src="https://images.vexels.com/media/users/3/152803/isolated/preview/7a26300dc9960e11f6a46966e696539d-escuela-cl--sica-ilustraci--n-de-edificio-by-vexels.png" className="card-img-top" alt="hola" width="50" height="400"></img>
+            <div className="card-body">
             <a href={"/instituciones/"+this.state.nombre}>  <button  className="btn btn-primary">{this.state.nombre}</button>
 </a>
            

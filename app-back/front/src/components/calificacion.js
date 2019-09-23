@@ -17,13 +17,13 @@ class calificacion extends Component {
     }
     render() {
         return (
-            <div class="calificacion">
-            <div class="row">
-                <div class="col-3">
+            <div className="calificacion">
+            <div className="row">
+                <div className="col-3">
                 <img src={this.state.image} className="img-fluid" alt="Institution" width="300" height="300"></img>
 
                 </div>
-                <div class="col-7">
+                <div className="col-7">
 <h3>{this.state.puntaje}</h3>
 <h4>Descripción</h4>
 

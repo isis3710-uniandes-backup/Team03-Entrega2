@@ -25,7 +25,7 @@ class home extends Component {
                 </div>
                 
                </div>
-               <div class="row">
+               <div className="row">
                           
                                
                               <InstitucionList ></InstitucionList>
