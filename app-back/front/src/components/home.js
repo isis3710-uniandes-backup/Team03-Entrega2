@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Home from './institucionList';
 import InstitucionList from './institucionList';
 
 
