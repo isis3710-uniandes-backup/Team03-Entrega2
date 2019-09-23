@@ -63,7 +63,7 @@ class RegistrarUsuario extends Component {
                         <input type="text" id="email" className="form-control" placeholder="email"  onChange={this.handleChange}></input>
                     </div>
                     <div >
-                        <button class="btn btn-primary">Registrarse</button>
+                        <button className="btn btn-primary">Registrarse</button>
                     </div>
                 </form>
                 </div>
