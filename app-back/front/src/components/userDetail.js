@@ -13,7 +13,7 @@ class userDetail extends Component {
         method: this.props.value.method
       
     }
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
 
         fetch("/usuarios/"+nextProps.value.usuario+"/").then(res => res.json()).then(m=>{
             console.log(m);

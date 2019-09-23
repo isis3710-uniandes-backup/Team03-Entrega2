@@ -7,7 +7,7 @@ class calificacion extends Component {
         puntaje:this.props.value.puntaje,
 
     }
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
 
         this.setState({
             descripcion:nextProps.value.descripcion,

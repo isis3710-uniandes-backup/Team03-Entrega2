@@ -5,7 +5,7 @@ class cursos extends Component {
     state={
         list: this.props.value.e
     }
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
 
         this.setState({
             list: nextProps.value.e,

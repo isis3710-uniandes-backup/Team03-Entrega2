@@ -5,7 +5,7 @@ class calificaciones extends Component {
     state={
         list:this.props.value.calificaciones
     }
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
 
         this.setState({
             list: nextProps.value.calificaciones,
