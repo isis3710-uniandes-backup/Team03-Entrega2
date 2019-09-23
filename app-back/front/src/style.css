@@ -9,6 +9,10 @@ background-size: cover;
 #contenedor{
    background: #ffffff;
 }
+#cerrar{
+    margin-right: 5px;
+    padding-right: 5px;
+ }
 .contenedor{
     background: #ffffff;
  }

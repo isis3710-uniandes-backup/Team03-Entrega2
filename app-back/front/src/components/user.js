@@ -16,6 +16,12 @@ class User extends Component {
         console.log(this.state);
 
     }
+    exit=(user, event)=> {
+        
+        this.setState({ autentication :false,usershow:true});
+        console.log(this.state);
+        
+    }
     
     render(){
         return (
@@ -25,7 +31,7 @@ class User extends Component {
                 </div>
              
              <div hidden ={this.state.usershow}>
-             <UserDetail  value={{usuario:this.state.usuario, password: this.state.password}}></UserDetail> 
+             <UserDetail  value={{usuario:this.state.usuario, password: this.state.password, method:this.exit}}></UserDetail> 
 
              </div>
             </div>

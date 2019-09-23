@@ -5,8 +5,18 @@ class login extends Component {
       method: this.props.value,
       shouldHide: true
     }
+    componentDidMount(){
+        
+      console.log(localStorage.getItem("user"));
+      if(localStorage.getItem("user")!=null){
+        let user= JSON.parse(localStorage.getItem("user"));
+      
+        this.state.method(user,true);
+      }
+    }
+
     autentication= (event) => {
-        event.preventDefault();
+      event.preventDefault();
         
      let user={usuario:document.getElementById("loginUser").value ,password: document.getElementById("passwordUser").value };
      let g="/usuarios/"+user.usuario;
@@ -14,8 +24,8 @@ class login extends Component {
      fetch(g).then(res => res.json()).then(m=>{
      console.log(m);
      if(m.password==user.password){
-      
-      this.state.method(user,true);
+      localStorage.setItem("user",JSON.stringify(m));
+      this.state.method(m,true);
   }
   else{
     this.setState(

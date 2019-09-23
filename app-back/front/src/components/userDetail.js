@@ -9,7 +9,9 @@ class userDetail extends Component {
         correo:"",
         cursos:[],
         rol:"",
-        calificaciones:[]
+        calificaciones:[],
+        method: this.props.value.method
+      
     }
     componentWillReceiveProps(nextProps){
 
@@ -32,9 +34,20 @@ class userDetail extends Component {
     });
         
     }
+    exitAutentication= (event) => {
+     event.preventDefault();
+        
+     
+     localStorage.removeItem("user");
+    this.state.method(event);
+      
+    };
     render() {
+       
         return (
             <div>
+
+       
                 <br></br>
                 <br></br>
                 <br></br>
@@ -46,7 +59,15 @@ class userDetail extends Component {
 
                     </div>
                     <div class="col-7">
-                    <h1>{this.state.usuario} </h1> 
+                    <div class="row">
+                    <div class="col-4"><h1>{this.state.usuario} </h1> </div>
+                    <div id="cerrar"class="col-5">
+
+                    <a onClick={(event)=>{this.exitAutentication(event)}} class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+                    </div>
+                    </div>
                     <br></br>
                     <h3>Correo:         {this.state.correo} </h3>
                     <h3>Rol:            {this.state.rol} </h3>
