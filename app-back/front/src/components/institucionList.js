@@ -15,7 +15,7 @@ class InstitucionList extends Component {
     render() {
         
         return (
-            <div class="row">
+            <div className="row">
                            {this.state.list.map((e,i)=>
                                
                               <CardInstitucion value={e} key={i}></CardInstitucion>
