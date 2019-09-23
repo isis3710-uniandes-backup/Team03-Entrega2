@@ -5,7 +5,22 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 background-attachment: fixed;
 background-size: cover;
 }
+#imghome{
+    margin-top: 50px;
+    width: 500px;
+    height: 500px;
+    border-radius: 250px;
+	border:10px solid #ffffff;
+}
+#titulohome{
+    color:black;
+    margin-top: 150px;
+    margin-left: 50px;
 
+}
+.form-group{
+    margin-top: 50px;
+}
 #contenedor{
    background: #ffffff;
 }
