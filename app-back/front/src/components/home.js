@@ -9,6 +9,16 @@ class home extends Component {
     render() {
         return (
             <div className="container">
+
+<div className="logotipo">
+<img src="https://i.ibb.co/J7HxNLs/oie-g-YBLPr-Mnh-Te-G.png" className="img-fluid" alt="Institution" width="600" height="200"></img>
+</div>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
                 <div className="row">
                     <div className="col-1"></div>
                      <div className="col-5">

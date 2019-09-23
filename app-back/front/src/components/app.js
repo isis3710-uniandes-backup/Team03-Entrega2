@@ -11,6 +11,9 @@ import Registrar  from './registrarUsuario';
 
 
 class App extends Component {
+  componentDidMount(){
+    document.title = 'PINE';
+  }
   render() {
     const App = () => (
       <div>
