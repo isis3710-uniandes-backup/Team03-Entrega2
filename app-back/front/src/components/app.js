@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch,Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import InstitucionList from './institucionList';
@@ -24,27 +24,27 @@ class App extends Component {
           <Navbar.Collapse>
               <Nav className="mr-auto">
                   <NavItem eventkey={1} href="/">
-                      <Nav.Link href="/">Home</Nav.Link>
+                      <Nav.Link as={Link} to="/">Home</Nav.Link>
                   </NavItem>
               </Nav>
               <Nav className="mr-auto">
                   <NavItem eventkey={1} href="/user">
-                      <Nav.Link href="/user">Login</Nav.Link>
+                      <Nav.Link as={Link} to="/user">Login</Nav.Link>
                   </NavItem>
               </Nav>
               <Nav className="mr-auto">
                   <NavItem eventkey={1} href="/registrar">
-                      <Nav.Link href="/registrar">Registrar</Nav.Link>
+                      <Nav.Link as={Link} to="/registrar">Registrar</Nav.Link>
                   </NavItem>
               </Nav>
               <Nav className="mr-auto">
                   <NavItem eventkey={1} href="/instituciones">
-                      <Nav.Link href="/instituciones">Instituciones</Nav.Link>
+                      <Nav.Link as={Link} to="/instituciones">Instituciones</Nav.Link>
                   </NavItem>
               </Nav>
               <Nav className="mr-auto">
                   <NavItem eventkey={1} href="/registrarInstitucion">
-                      <Nav.Link href="/registrarInstitucion">Registrar Institucion</Nav.Link>
+                      <Nav.Link as={Link} to="/registrarInstitucion">Registrar Institucion</Nav.Link>
                   </NavItem>
               </Nav>
           </Navbar.Collapse>
@@ -67,9 +67,9 @@ class App extends Component {
       </div>
     )
     return (
-      <Switch>
+      
         <App/>
-      </Switch>
+      
     );
   }
 }
